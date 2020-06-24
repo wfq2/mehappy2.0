@@ -25,7 +25,7 @@ const RestaurantList: FC = () => {
   >(GET_ALL_RESTAURANTS);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error :( {JSON.stringify(error)}</div>;
-  return <div>{JSON.stringify(data?.restaurants[0].id)}</div>;
+  return <div>{JSON.stringify(data?.restaurants[0].name)}</div>;
 };
 
 export default RestaurantList;

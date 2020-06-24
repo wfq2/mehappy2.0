@@ -16,8 +16,8 @@ import { Menu } from "../menus/menu.model";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository } from "typeorm";
 
-@Resolver((type) => Restaurant)
-export class RestaurantResolver {
+@Resolver((of) => Restaurant)
+export class RestaurantResolver implements ResolverInterface<Restaurant> {
   constructor(
     @InjectRepository(Menu)
     private menuRepository: Repository<Menu>
@@ -60,5 +60,10 @@ export class RestaurantResolver {
     if (!book) throw new Error("Restaurant not found!");
     await book.remove();
     return true;
+  }
+
+  @FieldResolver()
+  async menus(@Root() restaurant: Restaurant): Promise<Menu[]> {
+    return this.menuRepository.find({ where: { restaurantId: restaurant.id } });
   }
 }

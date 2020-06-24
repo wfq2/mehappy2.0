@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2018",
+    "lib": ["es2018", "esnext.asynciterable"],
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "types": ["reflect-metadata"]
   }
 }

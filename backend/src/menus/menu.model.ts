@@ -39,6 +39,8 @@ export class Menu extends BaseEntity {
   @Field((type) => Restaurant)
   @ManyToOne((type) => Restaurant, (restaurant) => restaurant.menus)
   restaurant: Promise<Restaurant>;
+  @Column({ nullable: true })
+  restaurantId: string;
 
   @Field((type) => [MenuItem])
   @ManyToMany((type) => MenuItem)

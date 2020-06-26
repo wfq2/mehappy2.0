@@ -5,6 +5,7 @@ import {
   Mutation,
   FieldResolver,
   Root,
+  ResolverInterface,
 } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Menu } from "./menu.model";
@@ -13,7 +14,7 @@ import { Restaurant } from "../restaurants/restaurant.model";
 import { Repository } from "typeorm";
 
 @Resolver((of) => Menu)
-export class MenuResolver {
+export class MenuResolver implements ResolverInterface<Menu> {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>
@@ -33,5 +34,12 @@ export class MenuResolver {
     const menu = Menu.create(data);
     await menu.save();
     return menu;
+  }
+
+  @FieldResolver()
+  async restaurant(@Root() menu: Menu): Promise<Restaurant> {
+    return await this.restaurantRepository.findOneOrFail(menu.restaurantId, {
+      cache: 1000,
+    });
   }
 }

@@ -36,7 +36,7 @@ export class Menu extends BaseEntity {
   @UpdateDateColumn()
   public updatedAt: Date;
 
-  @Field((type) => Restaurant)
+  @Field((type) => Restaurant, { nullable: true })
   @ManyToOne((type) => Restaurant, (restaurant) => restaurant.menus)
   restaurant: Promise<Restaurant>;
   @Column({ nullable: true })

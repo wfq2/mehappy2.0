@@ -47,7 +47,7 @@ export class MenuItem extends BaseEntity {
   menu: Promise<Menu[]>;
 }
 
-enum MenuItemType {
+export enum MenuItemType {
   APPETIZER = "APPETIZER",
   MAIN = "MAIN",
   DESSERT = "DESSERT",

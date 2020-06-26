@@ -5,6 +5,7 @@ import { buildSchema } from "type-graphql";
 import { createConnection, useContainer } from "typeorm";
 import { MenuResolver } from "./menus/menu.resolver";
 import { Container } from "typedi";
+import { MenuItemResolver } from "./menuitems/menu-item.resolver";
 
 async function getUser(token: string): Promise<boolean> {
   if (token) {
@@ -19,7 +20,7 @@ async function main() {
   const connection = await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RestaurantResolver, MenuResolver],
+    resolvers: [RestaurantResolver, MenuResolver, MenuItemResolver],
     container: Container,
   });
 

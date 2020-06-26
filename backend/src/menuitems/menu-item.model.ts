@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
+  RelationId,
 } from "typeorm";
 import { registerEnumType } from "type-graphql";
 import { ObjectType, Field, ID } from "type-graphql";
@@ -43,8 +44,11 @@ export class MenuItem extends BaseEntity {
   public updatedAt: Date;
 
   @Field((type) => [Menu])
-  @ManyToMany((type) => Menu)
-  menu: Promise<Menu[]>;
+  @ManyToMany((type) => Menu, (menu) => menu.items)
+  menus: Promise<Menu[]>;
+
+  @RelationId((menuItem: MenuItem) => menuItem.menus)
+  menuIds: string[];
 }
 
 export enum MenuItemType {

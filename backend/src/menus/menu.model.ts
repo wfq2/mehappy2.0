@@ -8,6 +8,7 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  RelationId,
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Restaurant } from "../restaurants/restaurant.model";
@@ -37,13 +38,16 @@ export class Menu extends BaseEntity {
   public updatedAt: Date;
 
   @Field((type) => Restaurant, { nullable: true })
-  @ManyToOne((type) => Restaurant, (restaurant) => restaurant.menus)
+  @ManyToOne((type) => Restaurant)
   restaurant: Promise<Restaurant>;
-  @Column({ nullable: true })
+  @RelationId((menu: Menu) => menu.restaurant)
   restaurantId: string;
 
   @Field((type) => [MenuItem])
-  @ManyToMany((type) => MenuItem)
+  @ManyToMany((type) => MenuItem, (item) => item.menus)
   @JoinTable()
   items: Promise<MenuItem[]>;
+
+  @RelationId((menu: Menu) => menu.items)
+  itemIds: string[];
 }

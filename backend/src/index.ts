@@ -1,27 +1,30 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server";
 import { RestaurantResolver } from "./restaurants/restaurant.resolver";
-import { buildSchema } from "type-graphql";
+import { buildSchema, AuthChecker } from "type-graphql";
 import { createConnection, useContainer } from "typeorm";
 import { MenuResolver } from "./menus/menu.resolver";
 import { Container } from "typedi";
 import { MenuItemResolver } from "./menuitems/menu-item.resolver";
-
-async function getUser(token: string): Promise<boolean> {
-  if (token) {
-    return true;
-  }
-  return false;
-}
+import { UserResolver } from "./users/user.resolver";
+import { SessionService } from "./sessions/session.service";
 
 async function main() {
   const _ = await useContainer(Container);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const connection = await createConnection();
 
+  const sessionService = Container.get(SessionService);
+
   const schema = await buildSchema({
-    resolvers: [RestaurantResolver, MenuResolver, MenuItemResolver],
+    resolvers: [
+      RestaurantResolver,
+      MenuResolver,
+      MenuItemResolver,
+      UserResolver,
+    ],
     container: Container,
+    authChecker: customAuthChecker,
   });
 
   const server = new ApolloServer({
@@ -31,14 +34,12 @@ async function main() {
       const token = req.headers.authorization || "";
 
       // try to retrieve a user with the token
-      const user = getUser(token);
-
-      // optionally block the user
-      // we could also check user roles/permissions here
-      if (!user) throw new Error("you must be logged in");
-
-      // add the user to the context
-      return { user };
+      try {
+        const user = await sessionService.getUser(token);
+        return { user };
+      } catch (e) {
+        return null;
+      }
     },
   });
 
@@ -46,5 +47,17 @@ async function main() {
 
   console.log("Server has started!");
 }
+
+export const customAuthChecker: AuthChecker<any> = ({ context }, roles) => {
+  if (roles?.length > 0) {
+    return (
+      roles.filter((value) => context?.user?.roles?.includes(value)).length > 0
+    );
+  } else if (context.user) {
+    return false;
+  }
+
+  return true; // or false if access is denied
+};
 
 main();

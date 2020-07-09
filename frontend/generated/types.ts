@@ -17,6 +17,10 @@ export type Query = {
   restaurant: Restaurant;
   menus: Array<Menu>;
   menu: Menu;
+  items: Array<MenuItem>;
+  item: MenuItem;
+  users: Array<User>;
+  user: User;
 };
 
 
@@ -26,6 +30,16 @@ export type QueryRestaurantArgs = {
 
 
 export type QueryMenuArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryItemArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryUserArgs = {
   id: Scalars['String'];
 };
 
@@ -45,7 +59,7 @@ export type Menu = {
   isPublished: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  restaurant: Restaurant;
+  restaurant?: Maybe<Restaurant>;
   items: Array<MenuItem>;
 };
 
@@ -59,7 +73,7 @@ export type MenuItem = {
   type: MenuItemType;
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  menu: Array<Menu>;
+  menus: Array<Menu>;
 };
 
 export enum MenuItemType {
@@ -71,12 +85,25 @@ export enum MenuItemType {
   Hardseltzer = 'HARDSELTZER'
 }
 
+export type User = {
+  __typename?: 'User';
+  id: Scalars['ID'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+  roles: Array<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createRestaurant: Restaurant;
   updateBook: Restaurant;
   deleteRestaurant: Scalars['Boolean'];
   createMenu: Menu;
+  createMenuItem: MenuItem;
+  createUser: User;
+  login: Scalars['String'];
 };
 
 
@@ -100,6 +127,21 @@ export type MutationCreateMenuArgs = {
   data: CreateMenuInput;
 };
 
+
+export type MutationCreateMenuItemArgs = {
+  data: CreateMenuItemInput;
+};
+
+
+export type MutationCreateUserArgs = {
+  data: CreateUserInput;
+};
+
+
+export type MutationLoginArgs = {
+  data: LoginInput;
+};
+
 export type CreateRestaurantInput = {
   name: Scalars['String'];
   owner: Scalars['String'];
@@ -116,6 +158,36 @@ export type CreateMenuInput = {
   restaurantId: Scalars['String'];
 };
 
+export type CreateMenuItemInput = {
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  description: Scalars['String'];
+  type: Scalars['String'];
+  menuIds: Array<Scalars['String']>;
+};
+
+export type CreateUserInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+  roles: Array<Scalars['String']>;
+};
+
+export type LoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'login'>
+);
+
 export type GetAllRestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -123,6 +195,6 @@ export type GetAllRestaurantsQuery = (
   { __typename?: 'Query' }
   & { restaurants: Array<(
     { __typename?: 'Restaurant' }
-    & Pick<Restaurant, 'id' | 'name'>
+    & Pick<Restaurant, 'id' | 'name' | 'owner'>
   )> }
 );

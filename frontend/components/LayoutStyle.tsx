@@ -1,14 +1,17 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
-import { Menu } from 'antd'
+import React, { ReactNode } from "react";
+import Link from "next/link";
+import Head from "next/head";
+import { Menu } from "antd";
 
 type Props = {
-  children?: ReactNode
-  title?: string
-}
+  children?: ReactNode;
+  title?: string;
+};
 
-const LayoutStyle = ({ children, title = 'This is the default title' }: Props) => (
+const LayoutStyle = ({
+  children,
+  title = "This is the default title",
+}: Props) => (
   <div>
     <Head>
       <title>{title}</title>
@@ -54,11 +57,13 @@ const LayoutStyle = ({ children, title = 'This is the default title' }: Props) =
       </Menu>
     </header>
     {children}
-    {/* <footer>
-      <hr />
-      <span>I'm here to stay (Footer)</span>
-    </footer> */}
+    {
+      <footer>
+        <hr />
+        <span>I'm here to stay (Footer)</span>
+      </footer>
+    }
   </div>
-)
+);
 
 export default LayoutStyle;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FC } from "react"
+import { FC } from "react";
 import LayoutStyle from "../components/LayoutStyle";
 import App from "../components/App";
 import RestaurantList from "../components/RestaurantList";
@@ -8,11 +8,7 @@ import { Layout } from "antd";
 const { Header, Content, Footer } = Layout;
 const IndexPage: FC = () => (
   <App>
-    <Layout>
-      <Header>
-        <LayoutStyle title="Home | Next.js + TypeScript Example">
-        </LayoutStyle>
-      </Header>
+    <LayoutStyle title="Home | Next.js + TypeScript Example">
       <Content>
         <h1>Hello Wyatt 👋</h1>
         <p>
@@ -24,11 +20,7 @@ const IndexPage: FC = () => (
           <RestaurantList />
         </div>
       </Content>
-      <Footer>
-
-      </Footer>
-    </Layout>
-
+    </LayoutStyle>
   </App>
 );
 

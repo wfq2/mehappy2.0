@@ -12,6 +12,10 @@ if (!isBrowser) {
   (global as any).fetch = fetch;
 }
 
+export function setToken(token: string): void {
+  sessionStorage.setItem("token", token);
+}
+
 interface Options {
   getToken: () => string;
 }

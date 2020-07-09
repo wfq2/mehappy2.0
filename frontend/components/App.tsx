@@ -10,7 +10,7 @@ export default function App({ children }) {
         }
         body {
           margin: 0;
-          padding: 25px 50px;
+          padding: 0;
         }
         a {
           color: #22bad9;

@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Layout from '../components/Layout'
+import LayoutStyle from '../components/LayoutStyle';
 
 const AboutPage = () => (
-  <Layout title="About | Next.js + TypeScript Example">
+  <LayoutStyle title="About | Next.js + TypeScript Example">
     <h1>about</h1>
     <p>This is the about page</p>
     <p>
@@ -10,7 +10,7 @@ const AboutPage = () => (
         <a>Go home</a>
       </Link>
     </p>
-  </Layout>
+  </LayoutStyle>
 )
 
 export default AboutPage;

@@ -23,6 +23,34 @@ export class Restaurant extends BaseEntity {
   @Column()
   owner: string;
 
+  @Field(() => String)
+  @Column()
+  description: string;
+
+  @Field(() => String)
+  @Column()
+  address: string;
+
+  @Field(() => String)
+  @Column()
+  zip: string;
+
+  @Field(() => String)
+  @Column()
+  city: string;
+
+  @Field(() => String)
+  @Column()
+  state: string;
+
+  @Field(() => String)
+  @Column({ unique: true })
+  slug: string;
+
+  @Field(() => [String])
+  @Column("simple-array")
+  tags: string[];
+
   @Field(() => Boolean)
   @Column({ default: false })
   isPublished: boolean;

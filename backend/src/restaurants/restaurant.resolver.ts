@@ -43,7 +43,7 @@ export class RestaurantResolver implements ResolverInterface<Restaurant> {
   }
 
   @Mutation((returns) => Restaurant)
-  async updateBook(
+  async updateRestaurant(
     @Arg("id") id: string,
     @Arg("data") data: UpdateRestaurantInput
   ): Promise<Restaurant> {

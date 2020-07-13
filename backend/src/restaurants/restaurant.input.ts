@@ -7,6 +7,27 @@ export class CreateRestaurantInput {
 
   @Field()
   owner: string;
+
+  @Field()
+  description: string;
+
+  @Field()
+  address: string;
+
+  @Field()
+  zip: string;
+
+  @Field()
+  city: string;
+
+  @Field()
+  state: string;
+
+  @Field()
+  slug: string;
+
+  @Field((of) => [String])
+  tags: string[];
 }
 
 @InputType()

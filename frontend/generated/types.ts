@@ -25,7 +25,8 @@ export type Query = {
 
 
 export type QueryRestaurantArgs = {
-  id: Scalars['String'];
+  slug?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
 };
 
 
@@ -48,6 +49,13 @@ export type Restaurant = {
   id: Scalars['ID'];
   name: Scalars['String'];
   owner: Scalars['String'];
+  description: Scalars['String'];
+  address: Scalars['String'];
+  zip: Scalars['String'];
+  city: Scalars['String'];
+  state: Scalars['String'];
+  slug: Scalars['String'];
+  tags: Array<Scalars['String']>;
   isPublished: Scalars['Boolean'];
   menus: Array<Menu>;
 };
@@ -98,7 +106,7 @@ export type User = {
 export type Mutation = {
   __typename?: 'Mutation';
   createRestaurant: Restaurant;
-  updateBook: Restaurant;
+  updateRestaurant: Restaurant;
   deleteRestaurant: Scalars['Boolean'];
   createMenu: Menu;
   createMenuItem: MenuItem;
@@ -112,7 +120,7 @@ export type MutationCreateRestaurantArgs = {
 };
 
 
-export type MutationUpdateBookArgs = {
+export type MutationUpdateRestaurantArgs = {
   data: UpdateRestaurantInput;
   id: Scalars['String'];
 };
@@ -145,6 +153,13 @@ export type MutationLoginArgs = {
 export type CreateRestaurantInput = {
   name: Scalars['String'];
   owner: Scalars['String'];
+  description: Scalars['String'];
+  address: Scalars['String'];
+  zip: Scalars['String'];
+  city: Scalars['String'];
+  state: Scalars['String'];
+  slug: Scalars['String'];
+  tags: Array<Scalars['String']>;
 };
 
 export type UpdateRestaurantInput = {
@@ -197,4 +212,28 @@ export type GetAllRestaurantsQuery = (
     { __typename?: 'Restaurant' }
     & Pick<Restaurant, 'id' | 'name' | 'owner'>
   )> }
+);
+
+export type GetAllSlugsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllSlugsQuery = (
+  { __typename?: 'Query' }
+  & { restaurants: Array<(
+    { __typename?: 'Restaurant' }
+    & Pick<Restaurant, 'slug'>
+  )> }
+);
+
+export type GetRestaurantBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type GetRestaurantBySlugQuery = (
+  { __typename?: 'Query' }
+  & { restaurant: (
+    { __typename?: 'Restaurant' }
+    & Pick<Restaurant, 'name' | 'description'>
+  ) }
 );

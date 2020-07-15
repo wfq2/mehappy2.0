@@ -29,8 +29,17 @@ export class RestaurantResolver implements ResolverInterface<Restaurant> {
   }
 
   @Query((returns) => Restaurant)
-  restaurant(@Arg("id") id: string): Promise<Restaurant | undefined> {
-    return Restaurant.findOne({ where: { id } });
+  restaurant(
+    @Arg("id", { nullable: true }) id?: string,
+    @Arg("slug", { nullable: true }) slug?: string
+  ): Promise<Restaurant> {
+    if (id) {
+      return Restaurant.findOneOrFail({ where: { id } });
+    } else if (slug) {
+      return Restaurant.findOneOrFail({ where: { slug } });
+    } else {
+      throw Error("must include either id or slug");
+    }
   }
 
   @Mutation((returns) => Restaurant)

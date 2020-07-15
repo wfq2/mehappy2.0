@@ -13,7 +13,9 @@ if (!isBrowser) {
 }
 
 export function setToken(token: string): void {
-  sessionStorage.setItem("token", token);
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem("token", token);
+  }
 }
 
 interface Options {
@@ -21,7 +23,10 @@ interface Options {
 }
 
 function getToken(): string {
-  const token = sessionStorage.getItem("token");
+  let token;
+  if (typeof localStorage !== "undefined") {
+    token = localStorage.getItem("token");
+  }
   if (!token) {
     return "";
   }

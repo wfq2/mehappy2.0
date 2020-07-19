@@ -33,7 +33,7 @@ const LayoutStyle = ({
         </Link>{' '}
         | <a href="/api/users">Users API</a>
       </nav> */}
-      <Menu theme="dark" mode="horizontal">
+      <Menu theme="dark" mode="horizontal" style={{padding: 10}}>
         <Menu.Item key="home">
           <Link href="/">
             <a>Home</a>
@@ -57,12 +57,12 @@ const LayoutStyle = ({
       </Menu>
     </header>
     {children}
-    {
+    {/* {
       <footer>
         <hr />
         <span>I'm here to stay (Footer)</span>
       </footer>
-    }
+    } */}
   </div>
 );
 

@@ -28,8 +28,8 @@ const IndexPage: FC = () => (
           />
         </div>
         <div style={{marginTop: 50, textAlign: "center"}}>
-          <Title>Restaurant Review</Title>
-          <Title level={4}>Hello Food Critics</Title>
+          <Title>Sample Info</Title>
+          <Title level={4}>Sample Info</Title>
         </div>
         <div>
           <Row justify="space-around" style={{marginTop: 50, marginBottom: 50}}>
@@ -42,14 +42,14 @@ const IndexPage: FC = () => (
             </Col>
             <Col>
               <Card title="Default Title" bordered={true} style={{width: 400}}>
-                <p>Card Content</p>
+                <p>Sample Data</p>
                 <p>Card Content</p>
                 <p>Card Content</p>
               </Card>
             </Col>
             <Col>
               <Card title="Default Title" bordered={true} style={{width: 400}}>
-                <p>Card Content</p>
+                <p>Sample Data</p>
                 <p>Card Content</p>
                 <p>Card Content</p>
               </Card>
